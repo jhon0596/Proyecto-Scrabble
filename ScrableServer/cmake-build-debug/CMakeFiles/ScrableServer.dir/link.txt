@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/ScrableServer.dir/main.cpp.o CMakeFiles/ScrableServer.dir/con_handler.cpp.o CMakeFiles/ScrableServer.dir/Server.cpp.o CMakeFiles/ScrableServer.dir/VerificadorPal.cpp.o  -o ScrableServer /usr/lib/x86_64-linux-gnu/libboost_system.so 
