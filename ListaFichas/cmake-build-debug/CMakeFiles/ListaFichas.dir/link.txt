@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/ListaFichas.dir/main.cpp.o CMakeFiles/ListaFichas.dir/ListaFichas.cpp.o CMakeFiles/ListaFichas.dir/node.cpp.o  -o ListaFichas 

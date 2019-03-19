@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jonathan/CLionProjects/ListaFichas/ListaFichas.cpp
+ListaFichas.h
+/home/jonathan/CLionProjects/ListaFichas/ListaFichas.h
+
+/home/jonathan/CLionProjects/ListaFichas/ListaFichas.h
+
+/home/jonathan/CLionProjects/ListaFichas/cmake-build-debug/node.cpp
+node.h
+/home/jonathan/CLionProjects/ListaFichas/cmake-build-debug/node.h
+
+/home/jonathan/CLionProjects/ListaFichas/cmake-build-debug/node.h
+
+/home/jonathan/CLionProjects/ListaFichas/main.cpp
+iostream
+-
+
