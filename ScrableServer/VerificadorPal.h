@@ -12,8 +12,10 @@
 
 class VerificadorPal {
 public:
-    static bool buscarPal(char* pal);
-    static std::string buscardicc(char* pal);
+    static bool buscarPal(std::string pal);
+
+private:
+    static std::string buscardicc(char pal);
 };
 
 

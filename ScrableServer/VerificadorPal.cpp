@@ -4,9 +4,9 @@
 
 #include "VerificadorPal.h"
 
-std::string VerificadorPal::buscardicc(char *pal) {
+std::string VerificadorPal::buscardicc(char pal) {
     std::string DFDic;
-    switch (pal[0]){
+    switch (pal){
         case 'A':
             DFDic="../palabras/a.txt";
             break;
@@ -36,9 +36,6 @@ std::string VerificadorPal::buscardicc(char *pal) {
             break;
         case 'J':
             DFDic="../palabras/j.txt";
-            break;
-        case 'K':
-            DFDic="../palabras/k.txt";
             break;
         case 'L':
             DFDic="../palabras/l.txt";
@@ -76,9 +73,6 @@ std::string VerificadorPal::buscardicc(char *pal) {
         case 'V':
             DFDic="../palabras/v.txt";
             break;
-        case 'W':
-            DFDic="../palabras/w.txt";
-            break;
         case 'X':
             DFDic="../palabras/x.txt";
             break;
@@ -96,30 +90,30 @@ std::string VerificadorPal::buscardicc(char *pal) {
     return DFDic;
 }
 
-bool VerificadorPal::buscarPal(char *pal) {
+bool VerificadorPal::buscarPal(std::string pal) {
     std::string line;
 
-    std::ifstream myfile(buscardicc(pal));
+    std::ifstream myfile(buscardicc(pal.at(0)));
     bool enDICC;
-    int comp;
-    char *palabra;
+
+    std::string palabra;
     if (myfile.is_open())
     {
 
         while ( getline (myfile,line) )
         {
             line.pop_back();//elimmina \r que tiene el string
-            palabra =(char *)line.c_str();
+            palabra =line;
 
-            comp = strcmp(pal,palabra);
 
-            if(comp==0){
+
+            if(pal==palabra){
                 enDICC = true;
                 break;
             } else{enDICC = false;}
         }
         myfile.close();
-
+        palabra="";
     }
 
     else std::cout << "Unable to open file";

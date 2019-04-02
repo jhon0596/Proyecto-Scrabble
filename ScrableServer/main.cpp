@@ -1,7 +1,6 @@
 #include <iostream>
 #include <boost/asio.hpp>
-#import "VerificadorPal.h"
-#import "Server.h"
+#include "Server.h"
 
 
 using namespace boost::asio;
@@ -13,8 +12,10 @@ using std::endl;
 
 
 int main() {
-    try
+
+     try
     {
+        cout <<"servidor iniciado";
         boost::asio::io_service io_service;
         Server server(io_service);
         io_service.run();

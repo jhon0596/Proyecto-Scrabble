@@ -4,6 +4,7 @@
 
 #include "con_handler.h"
 
+
 con_handler::pointer con_handler::create(boost::asio::io_service &io_service) {
     return pointer(new con_handler(io_service));
 }
@@ -13,24 +14,24 @@ tcp::socket &con_handler::socket() {
 }
 
 void con_handler::start() {
+    char dato[max_length];
+    char dato[max_length];
+    //cout << dato<<endl;
     sock.async_read_some(
-            boost::asio::buffer(data, max_length),
+            boost::asio::buffer(dato, max_length),
             boost::bind(&con_handler::handle_read,
                         shared_from_this(),
                         boost::asio::placeholders::error,
                         boost::asio::placeholders::bytes_transferred));
 
-    palCheck= VerificadorPal::buscarPal(data);
-    if (palCheck){
-        message="palabra Encontrada" ;
-    } else{message= "palabra NO Encontrada"; }
 
 
 
+    operaciones(dato);
 
 
     sock.async_write_some(
-            boost::asio::buffer(message, max_length),
+            boost::asio::buffer(this->message, max_length),
             boost::bind(&con_handler::handle_write,
                         shared_from_this(),
                         boost::asio::placeholders::error,
@@ -39,28 +40,44 @@ void con_handler::start() {
 
 void con_handler::handle_read(const boost::system::error_code &err, size_t bytes_transferred) {
     if (!err) {
-        std::cout << data << std::endl;
-        //entra la logica
-
 
     } else {
         std::cerr << "error: " << err.message() << std::endl;
-        sock.close();
+        //sock.close();
     }
 }
 
 void con_handler::handle_write(const boost::system::error_code &err, size_t bytes_transferred) {
     if (!err) {
-        cout << "Server sent Hello message!"<< endl;
-        // entra Json
-
-        if (palCheck){
-            message="palabra Encontrada" ;
-        } else{message= "palabra NO Encontrada"; }
-
 
     } else {
         std::cerr << "error: " << err.message() << endl;
-        sock.close();
+       // sock.close();
     }
 }
+
+void con_handler::operaciones(char *dato) {
+
+TrJSON tr;
+    tr.Json2cod(dato);
+    boost::property_tree::ptree pt2=tr.arb;
+
+    std::string g = pt2.get<std::string>("codigo");
+
+    if(lobby.getSize() == 0 ){
+        std::cout << "creo un nuevo juego";
+        juego j= juego(pt2.get<std::string>("palabra"),pt2.get<std::string>("codigo"));
+        lobby.add(&j);
+        this->message = tr.cod2json(j);
+    }else{
+        std::cout << "busca el juego";
+        //search(g)
+    }
+
+
+
+
+
+
+}
+
