@@ -12,9 +12,19 @@
 
 class VerificadorPal {
 public:
+    /**
+     *@brief busca la palabra en diccionario correcto(depende del primer caracter)
+     * @param pal palabra por buscar
+     * @return si la palabra ess valida
+     * */
     static bool buscarPal(std::string pal);
 
 private:
+    /**
+     *@brief  busca el diccionario correcto con el primer caracter de la palabra
+     * @param pal primer caracter de la palabra
+     * @return la direccion fisca del diccionario
+     * */
     static std::string buscardicc(char pal);
 };
 

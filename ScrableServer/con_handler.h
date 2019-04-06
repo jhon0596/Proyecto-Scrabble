@@ -12,7 +12,8 @@
 #include "TrJSON.h"
 #include "juego.h"
 #include "Lista.h"
-
+#include <thread>
+#include <mutex>
 
 using namespace boost::asio;
 using ip::tcp;
@@ -20,13 +21,6 @@ using std::cout;
 using std::endl;
 
 class con_handler: public boost::enable_shared_from_this<con_handler> {
-private:
-    enum { max_length = 1024};
-    tcp::socket sock;
-    std::string message="no mando ";
-    Lista<juego *> lobby;
-    bool palCheck;
-
 public:
     typedef boost::shared_ptr<con_handler> pointer;
     con_handler(boost::asio::io_service& io_service): sock(io_service){}
@@ -35,7 +29,18 @@ public:
     void start();
     void handle_read(const boost::system::error_code& err, size_t bytes_transferred);
     void handle_write(const boost::system::error_code& err, size_t bytes_transferred);
-void operaciones(char *dato);
+     void operaciones();
+
+private:
+    enum { max_length = 1024};
+    tcp::socket sock;
+    std::string message="no mando ";
+    int buscarJuego(std::string codigo);
+    bool palCheck;
+
+    std::string data;
+
+
 };
 
 

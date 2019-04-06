@@ -5,10 +5,11 @@
 #include "TrJSON.h"
 
 
-void TrJSON::Json2cod(std::string des) {
+void TrJSON::Json2cod(std::string serl) {
     boost::property_tree::ptree pt2;
-    des.pop_back();
-    std::istringstream is (des);
+    //debe ir la funcion que corrija el carateres basura
+   serl.pop_back();
+    std::istringstream is (serl);
     boost::property_tree::read_json(is,pt2);
     this->arb= pt2;
 }
@@ -22,10 +23,8 @@ std::string TrJSON::cod2json(juego &juego) {
         boost::property_tree::ptree row;
         for (int j = 0; j < 15; j++)
         {
-            // Create an unnamed value
             boost::property_tree::ptree cell;
             cell.put_value(juego.getMatriz(i,j));
-            // Add the value to our row
             row.push_back(std::make_pair("", cell));
         }
         // Add the row to our matrix

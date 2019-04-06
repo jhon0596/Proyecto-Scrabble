@@ -14,7 +14,16 @@
 class TrJSON {
 public:
     boost::property_tree::ptree arb;
-    void Json2cod(std::string des);
+    /**
+     *@brief  convierte el serial del json recibido por el server y crea el ptree
+     * @param serl json serializacdo
+     * */
+    void Json2cod(std::string serl);
+    /**
+     *@brief  convierte el ptree a json y luego serializa el json
+     * @param serl json serializacdo
+     * @return el json serializado para enviralo al cliente
+     * */
     std::string cod2json(juego &juego);
 private:
 

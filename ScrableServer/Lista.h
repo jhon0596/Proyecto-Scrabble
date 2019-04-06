@@ -7,6 +7,7 @@
 
 template<class T>
 struct node {
+
     node<T>* next;
     T data;
 };
@@ -38,6 +39,7 @@ Lista<T>::Lista() {
 
 template<class T>
 void Lista<T>::add(T data) {
+
     if(!this->first) {
         // The list is empty
         this->first = new node<T>;
@@ -62,7 +64,7 @@ void Lista<T>::add(T data) {
             this->last = insdata;
         }
     }
-size++;
+this->size++;
 }
 
 template<class T>

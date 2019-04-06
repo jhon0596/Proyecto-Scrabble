@@ -4,7 +4,7 @@
 
 #include "con_handler.h"
 
-
+Lista<juego > lobby;
 con_handler::pointer con_handler::create(boost::asio::io_service &io_service) {
     return pointer(new con_handler(io_service));
 }
@@ -15,8 +15,8 @@ tcp::socket &con_handler::socket() {
 
 void con_handler::start() {
     char dato[max_length];
-    char dato[max_length];
-    //cout << dato<<endl;
+
+
     sock.async_read_some(
             boost::asio::buffer(dato, max_length),
             boost::bind(&con_handler::handle_read,
@@ -25,9 +25,10 @@ void con_handler::start() {
                         boost::asio::placeholders::bytes_transferred));
 
 
+    std::cout << dato<< std::endl;
+    this->data =dato;
+    operaciones();
 
-
-    operaciones(dato);
 
 
     sock.async_write_some(
@@ -36,6 +37,7 @@ void con_handler::start() {
                         shared_from_this(),
                         boost::asio::placeholders::error,
                         boost::asio::placeholders::bytes_transferred));
+
 }
 
 void con_handler::handle_read(const boost::system::error_code &err, size_t bytes_transferred) {
@@ -56,28 +58,50 @@ void con_handler::handle_write(const boost::system::error_code &err, size_t byte
     }
 }
 
-void con_handler::operaciones(char *dato) {
+void con_handler::operaciones() {
 
-TrJSON tr;
-    tr.Json2cod(dato);
+
+    TrJSON tr;
+    tr.Json2cod(this->data);
     boost::property_tree::ptree pt2=tr.arb;
 
-    std::string g = pt2.get<std::string>("codigo");
-
+    std::cout << lobby.getSize()<< std::endl;
     if(lobby.getSize() == 0 ){
-        std::cout << "creo un nuevo juego";
+
         juego j= juego(pt2.get<std::string>("palabra"),pt2.get<std::string>("codigo"));
-        lobby.add(&j);
+        lobby.add(j);
+
         this->message = tr.cod2json(j);
+
     }else{
-        std::cout << "busca el juego";
-        //search(g)
+        std::cout << "busca el juego"<<endl;
+
+        juego j  = lobby[buscarJuego(pt2.get<std::string>("codigo"))];
+        std::cout <<j.getCodigoEntrada();
+         this->message = tr.cod2json(j);
+         std::cout << this->message<< std::endl;
     }
 
 
 
 
 
-
 }
+
+int con_handler::buscarJuego(std::string codigo) {
+    int i = 0;
+    while(i<lobby.getSize()){
+        if(lobby[i].getCodigoEntrada()== codigo ){
+
+            break;
+        } else{i++;
+
+            continue;}
+    }
+
+
+    return i;
+}
+
+
 

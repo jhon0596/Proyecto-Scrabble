@@ -5,12 +5,16 @@
 #include "juego.h"
 #include "VerificadorPal.h"
 
+
+
+
 juego::juego(std::string pal,std::string cod) {
     this->codigoEntrada=cod;
     this->GenerarMatriz();
 
     this->valPal(pal);
 }
+juego::juego(){}
 
 void juego::GenerarMatriz() {
 
@@ -38,4 +42,8 @@ const std::string &juego::getResultado() const {
 
 char juego::getMatriz(int fil, int col) {
     return this->met[fil][col];
+}
+
+const std::string &juego::getCodigoEntrada() const {
+    return codigoEntrada;
 }

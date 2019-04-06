@@ -3,6 +3,8 @@ project(ScrableServer)
 
 set(CMAKE_CXX_STANDARD 14)
 find_package(Boost COMPONENTS system REQUIRED)
+set(THREADS_PREFER_PTHREAD_FLAGS ON)
+find_package(Threads)
 
 if(Boost_FOUND)
 
@@ -15,9 +17,9 @@ if(Boost_FOUND)
 
 endif()
 
-add_executable(ScrableServer main.cpp con_handler.cpp con_handler.h Server.cpp Server.h VerificadorPal.cpp VerificadorPal.cpp)
+add_executable(ScrableServer main.cpp con_handler.cpp con_handler.h Server.cpp Server.h VerificadorPal.cpp VerificadorPal.cpp TrJSON.cpp TrJSON.h juego.cpp juego.h Lista.h)
 if(Boost_FOUND)
 
     target_link_libraries(ScrableServer ${Boost_LIBRARIES})
-
+    target_link_libraries(ScrableServer ${CMAKE_THREAD_LIBS_INIT})
 endif()

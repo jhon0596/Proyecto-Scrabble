@@ -15,7 +15,7 @@ int main() {
 
      try
     {
-        cout <<"servidor iniciado";
+        cout <<"servidor iniciado"<< std::endl;
         boost::asio::io_service io_service;
         Server server(io_service);
         io_service.run();
