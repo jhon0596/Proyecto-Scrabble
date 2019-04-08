@@ -64,11 +64,20 @@ void con_handler::operaciones() {
     TrJSON tr;
     tr.Json2cod(this->data);
     boost::property_tree::ptree pt2=tr.arb;
+    int x[2];
+    int y[2];
+    int pos =0;
 
-    std::cout << lobby.getSize()<< std::endl;
+    for (auto i : as_vector<std::string>(pt2, "pos X")){  x[pos]=std::stoi(i); pos++;};
+    pos=0;
+    for (auto i : as_vector<std::string>(pt2, "pos Y")){  y[pos]=std::stoi(i); pos++;};
+
+
     if(lobby.getSize() == 0 ){
 
-        juego j= juego(pt2.get<std::string>("palabra"),pt2.get<std::string>("codigo"));
+        juego j= juego(pt2.get<std::string>("codigo"));
+        j.meterpalabra(x,y,pt2.get<std::string>("palabra"));
+
         lobby.add(j);
 
         this->message = tr.cod2json(j);
@@ -77,9 +86,9 @@ void con_handler::operaciones() {
         std::cout << "busca el juego"<<endl;
 
         juego j  = lobby[buscarJuego(pt2.get<std::string>("codigo"))];
-        std::cout <<j.getCodigoEntrada();
+
          this->message = tr.cod2json(j);
-         std::cout << this->message<< std::endl;
+
     }
 
 
@@ -101,6 +110,14 @@ int con_handler::buscarJuego(std::string codigo) {
 
 
     return i;
+}
+
+template<typename T>
+std::vector<T> con_handler::as_vector(boost::property_tree::ptree const &pt, const boost::property_tree::ptree::key_type &key) {
+    std::vector<T> r;
+    for (auto& item : pt.get_child(key))
+        r.push_back(item.second.get_value<T>());
+    return r;
 }
 
 
