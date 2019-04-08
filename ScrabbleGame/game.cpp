@@ -9,7 +9,7 @@
 #include"listafichas.h"
 #include"node.h"
 #include<QLabel>
-#include<pieceficha.h>
+
 Game::Game(QWidget *parent ):QGraphicsView(parent)
 {
 
@@ -212,12 +212,13 @@ void Game::addFichas(){
         node* nodeD = listaF.deleteFicha(ficha);
         listaFP.addFF(nodeD);
         QString casoF = setImagen(ficha);
-        pieceFicha* ficha1 = new pieceFicha(casoF);
-        ficha1->setPos(x,y);
-        addToScene(ficha1);
-        listG.append(ficha1);
+        QGraphicsPixmapItem *imagenF =new QGraphicsPixmapItem();
+        imagenF->setPixmap(casoF);
+        imagenF->setPos(x,y);
+        addToScene(imagenF);
+        listG.append(imagenF);
         y+=175;
-        connect(ficha1,SIGNAL(clicked()) , this , SLOT(addInBoard()));
+
     }
     y=50;
 
@@ -227,12 +228,13 @@ void Game::addFichas(){
         node* nodeD = listaF.deleteFicha(ficha);
         listaFP.addFF(nodeD);
         QString casoF = setImagen(ficha);
-        pieceFicha* ficha1 = new pieceFicha(casoF);
-        ficha1->setPos(x+150,y);
-        addToScene(ficha1);
-        listG.append(ficha1);
+        QGraphicsPixmapItem *imagenF =new QGraphicsPixmapItem();
+        imagenF->setPixmap(casoF);
+        imagenF->setPos(x+150,y);
+        addToScene(imagenF);
+        listG.append(imagenF);
         y+=175;
-        connect(ficha1,SIGNAL(clicked()) , this , SLOT(addInBoard()));
+
     }
 
 
@@ -362,10 +364,6 @@ QString Game::setImagen(QString caso){
             QString ficha = ":/CarpetaFichas/fichaEnBlancoG.png";
             return ficha;
         }
-
-}
-void Game::addInBoard(){
-
 
 }
 

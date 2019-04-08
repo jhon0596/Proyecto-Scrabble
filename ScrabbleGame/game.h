@@ -37,12 +37,12 @@ public:
     QString generarFichaAzar();
 public slots:
     void start();
-    void addInBoard();
+
 
 private:
     QGraphicsScene *gameScene;
 
-    //QGraphicsTextItem * turnDisplay;
+
     board *Scrabbleboard;
     QString turn;
     QGraphicsRectItem * drawZF;

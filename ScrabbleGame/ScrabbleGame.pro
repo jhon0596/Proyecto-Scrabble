@@ -18,8 +18,7 @@ SOURCES += main.cpp\
     game.cpp \
     BoxScrabble.cpp \
     listafichas.cpp \
-    node.cpp \
-    pieceficha.cpp
+    node.cpp
 
 HEADERS  += \
     button.h \
@@ -27,8 +26,7 @@ HEADERS  += \
     game.h \
     BoxScrabble.h \
     listafichas.h \
-    node.h \
-    pieceficha.h
+    node.h
 
 FORMS    +=
 
